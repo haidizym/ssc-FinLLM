@@ -17,6 +17,7 @@
     <br />
     <br />
     <a href="https://github.com/haidizym/ssc-FinLLM"><strong>探索本项目的文档 »</strong></a>
+    <a href="https://www.bilibili.com/video/BV1Z1421D7Hq"><strong>b站视频介绍»</strong></a>
     <br />
     <br />
   </p>
