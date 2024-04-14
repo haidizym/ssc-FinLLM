@@ -6,7 +6,7 @@
 
 <p align="center">
   <a href="https://github.com/haidizym/ssc-FinLLM">
-    <img src="logo.png" alt="Logo" width="30%">
+    <img src="./doc/images/logo.png" alt="Logo" width="30%">
   </a>
 
 
@@ -83,7 +83,7 @@ git clone https://github.com/haidizym/ssc-FinLLM
 
 ### 数据构建
 
-- 请阅读[数据构建指南](generate_tutorial.md)查阅
+- 请阅读[数据构建指南](generate-data/generate_tutorial.md)查阅
 
 
 ### 使用到的框架
