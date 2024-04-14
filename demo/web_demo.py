@@ -1,3 +1,5 @@
+import os
+
 import streamlit as st
 import torch
 from transformers.utils import logging
@@ -7,10 +9,10 @@ from openxlab.model import download
 
 logger = logging.get_logger(__name__)
 
-model_name = "ssc-finllim-model"
+model_name = "./ssc-finllim-model"
 
-download(model_repo='zhuyamei/ssc-FinLLM',
-        output=model_name)
+os.system(f'git clone https://code.openxlab.org.cn/zhuyamei/ssc-FinLLM.git {model_name}')
+os.system(f'cd {model_name} && git lfs pull')
 
 def on_btn_click():
     del st.session_state.messages

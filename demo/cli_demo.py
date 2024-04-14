@@ -6,10 +6,10 @@ import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from openxlab.model import download
 
-model_name = "ssc-finllim-model"
+model_name = "./ssc-finllim-model"
 
-download(model_repo='zhuyamei/ssc-FinLLM',
-        output=model_name)
+os.system(f'git clone https://code.openxlab.org.cn/zhuyamei/ssc-FinLLM.git {model_name}')
+os.system(f'cd {model_name} && git lfs pull')
 
 model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", trust_remote_code=True,
                                              torch_dtype=torch.float16)
