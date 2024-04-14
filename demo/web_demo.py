@@ -12,7 +12,8 @@ logger = logging.get_logger(__name__)
 model_name = "./ssc-finllim-model"
 
 os.system(f'git clone https://code.openxlab.org.cn/zhuyamei/ssc-FinLLM.git {model_name}')
-os.system(f'cd {model_name} && git lfs pull')
+#os.system(f'cd {model_name} && git lfs pull')
+os.system(f'cd {model_name}  && git lfs install && git lfs pull')
 
 def on_btn_click():
     del st.session_state.messages
