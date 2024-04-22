@@ -75,7 +75,7 @@ def main():
     user_avator = "assets/user.png"
     robot_avator = "assets/robot.png"
 
-    st.title("FinLLM-ssc")
+    st.title("ssc-FinLLM")
 
     # Initialize chat history
     if "messages" not in st.session_state:
