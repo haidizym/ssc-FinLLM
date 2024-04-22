@@ -4,7 +4,7 @@ import streamlit as st
 import torch
 from transformers.utils import logging
 
-from transformers import AutoTokenizer, AutoModelForCausalLM  # isort: skip
+from transformers import AutoTokenizer, AutoModelForCausalLM, BitsAndBytesConfig   # isort: skip
 from openxlab.model import download
 
 logger = logging.get_logger(__name__)
