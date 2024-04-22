@@ -19,52 +19,53 @@ def on_btn_click():
     del st.session_state.messages
 
 
-# @st.cache_resource
-# def load_model():
-#     model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", trust_remote_code=True, torch_dtype=torch.float16)
-#     tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
-#     model = model.eval()
-#     return model, tokenizer
-
-def load_model(model_name_or_path=model_name, load_in_4bit=True, adapter_name_or_path=None):
-    if load_in_4bit:
-        quantization_config = BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_compute_dtype=torch.float16,
-            bnb_4bit_use_double_quant=True,
-            bnb_4bit_quant_type="nf4",
-            llm_int8_threshold=6.0,
-            llm_int8_has_fp16_weight=False,
-        )
-    else:
-        quantization_config = None
-
-    # 加载base model
-    model = AutoModelForCausalLM.from_pretrained(
-        model_name_or_path,
-        # load_in_4bit=load_in_4bit, 
-        # # ValueError: You can't pass `load_in_4bit`or `load_in_8bit` as a kwarg when passing `quantization_config` argument at the same time.
-        trust_remote_code=True,
-        low_cpu_mem_usage=True,
-        torch_dtype=torch.float16,
-        device_map='auto',
-        quantization_config=quantization_config
-    )
-
-    # 加载adapter
-    if adapter_name_or_path is not None:
-        model = PeftModel.from_pretrained(model, adapter_name_or_path)
-        
-    ## 加载tokenzier
-    tokenizer = AutoTokenizer.from_pretrained(
-        model_name_or_path if adapter_name_or_path is None else adapter_name_or_path,
-        trust_remote_code=True,
-        use_fast=False
-    )
-
-    if tokenizer.pad_token is None:
-        tokenizer.pad_token = tokenizer.eos_token
+@st.cache_resource
+def load_model():
+    model = AutoModelForCausalLM.from_pretrained(model_name, device_map="auto", trust_remote_code=True, torch_dtype=torch.float16)
+    tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
+    model = model.eval()
     return model, tokenizer
+
+# #control+/可以注释所选区域每一行，再次可以逆操作
+# def load_model(model_name_or_path=model_name, load_in_4bit=True, adapter_name_or_path=None):
+#     if load_in_4bit:
+#         quantization_config = BitsAndBytesConfig(
+#             load_in_4bit=True,
+#             bnb_4bit_compute_dtype=torch.float16,
+#             bnb_4bit_use_double_quant=True,
+#             bnb_4bit_quant_type="nf4",
+#             llm_int8_threshold=6.0,
+#             llm_int8_has_fp16_weight=False,
+#         )
+#     else:
+#         quantization_config = None
+
+#     # 加载base model
+#     model = AutoModelForCausalLM.from_pretrained(
+#         model_name_or_path,
+#         # load_in_4bit=load_in_4bit, 
+#         # # ValueError: You can't pass `load_in_4bit`or `load_in_8bit` as a kwarg when passing `quantization_config` argument at the same time.
+#         trust_remote_code=True,
+#         low_cpu_mem_usage=True,
+#         torch_dtype=torch.float16,
+#         device_map='auto',
+#         quantization_config=quantization_config
+#     )
+
+#     # 加载adapter
+#     if adapter_name_or_path is not None:
+#         model = PeftModel.from_pretrained(model, adapter_name_or_path)
+        
+#     ## 加载tokenzier
+#     tokenizer = AutoTokenizer.from_pretrained(
+#         model_name_or_path if adapter_name_or_path is None else adapter_name_or_path,
+#         trust_remote_code=True,
+#         use_fast=False
+#     )
+
+#     if tokenizer.pad_token is None:
+#         tokenizer.pad_token = tokenizer.eos_token
+#     return model, tokenizer
 
 def main():
     # torch.cuda.empty_cache()
